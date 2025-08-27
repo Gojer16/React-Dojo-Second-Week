@@ -1,34 +1,61 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import StarRating from './components/StarRating'
+import InputGroup from './components/InputGroup';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [rating, setRating] = useState(0)
+  const [formData, setFormData] = useState({
+    name: "",
+    email: ""
+  });
+
+const handleSubmit = (e) => {
+  e.preventDefault(); // stop page reload
+  if (!formData.name) {
+    alert("Name is required");
+    return;
+  }
+  if (!formData.email.includes("@")) {
+    alert("Email must be valid");
+    return;
+  }
+  alert("Form submitted successfully ✅");
+};
+
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+      <StarRating
+      rating={rating} 
+      onRatingChange={setRating} 
+      >
+      <strong>Rating: {rating}</strong>
+      </StarRating>
+
+    <form onSubmit={handleSubmit}
+    >
+      <InputGroup
+        label="Name"
+        type="text"
+        value={formData.name}
+        onChange={(e) =>
+          setFormData((prev) => ({ ...prev, name: e.target.value }))}
+        error={!formData.name ? "Name is required" : ""}
+      />
+
+      <InputGroup
+        label="Email"
+        type="email"
+        value={formData.email}
+        onChange={(e) =>
+          setFormData((prev) => ({ ...prev, email: e.target.value }))}
+        error={!formData.email.includes("@") ? "Invalid email" : ""}
+        />
+
+      <button type="submit">Submit</button>
+    </form>
+    </> 
   )
 }
 
