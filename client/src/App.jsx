@@ -9,6 +9,10 @@ function App() {
     name: "",
     email: ""
   });
+  const [touched, setTouched] = useState({
+    name: false,
+    email: false
+  });
 
 const handleSubmit = (e) => {
   e.preventDefault(); // stop page reload
@@ -29,6 +33,15 @@ const handleSubmit = (e) => {
       <StarRating
       rating={rating} 
       onRatingChange={setRating} 
+      maxStars={5}
+      >
+      <strong>Rating: {rating}</strong>
+      </StarRating>
+
+       <StarRating
+      rating={rating} 
+      onRatingChange={setRating}
+      maxStars={10}
       >
       <strong>Rating: {rating}</strong>
       </StarRating>
@@ -41,7 +54,8 @@ const handleSubmit = (e) => {
         value={formData.name}
         onChange={(e) =>
           setFormData((prev) => ({ ...prev, name: e.target.value }))}
-        error={!formData.name ? "Name is required" : ""}
+        onBlur={() => setTouched((prev) => ({ ...prev, email: true }))}
+        error={touched.name && !formData.name ? "Name is required" : ""}
       />
 
       <InputGroup
@@ -50,7 +64,8 @@ const handleSubmit = (e) => {
         value={formData.email}
         onChange={(e) =>
           setFormData((prev) => ({ ...prev, email: e.target.value }))}
-        error={!formData.email.includes("@") ? "Invalid email" : ""}
+        onBlur={() => setTouched((prev) => ({ ...prev, email: true }))}
+        error={touched.email && !formData.email ? "email is required" : ""}
         />
 
       <button type="submit">Submit</button>

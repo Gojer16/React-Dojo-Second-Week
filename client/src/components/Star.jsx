@@ -4,7 +4,11 @@ const Star = ({filled, onClick}) => {
   return (
     <>
       <span 
-        style={{ cursor: "pointer", fontSize: "2rem", color: filled ? "gold" : "gray" }}
+        style={{ 
+          cursor: "pointer", 
+          fontSize: "2rem", 
+          color: filled ? "gold" : "gray" 
+        }}
         onClick={onClick}
       >
       {filled ? "★" : "☆"}

@@ -5,7 +5,10 @@ const InputGroup = (
     type, 
     value, 
     onChange, 
-    error }
+    error,
+    onBlur,
+    placeholder
+  }
 ) => {
 
   return (
@@ -16,6 +19,8 @@ const InputGroup = (
         type={type} 
         value={value} 
         onChange={onChange} 
+        onBlur={onBlur}
+        placeholder={placeholder}
         />
       </label>
       {error && <p style={{ color: "red" }}>{error}</p>}

@@ -1,19 +1,21 @@
 import React from 'react'
 import Star from './Star'
 
-const StarRating = ({ rating, onRatingChange, children }) => {
+const StarRating = ({ maxStars = 5, rating, onRatingChange, children }) => {
   return (
     <div>
-        {[1, 2, 3, 4, 5].map((index) => (
+       {Array.from({length: maxStars}, (_, i) => (
         <Star 
-          key={index}
-          filled={index <= rating}
-          onClick={() => onRatingChange(index)}
+          key={i}
+          filled={i + 1 <= rating}
+          onClick={() => onRatingChange(i + 1)}
         />
-      ))}
-      <div style={{ marginTop: "1rem" }}>
-        {children}
+       ))}
+      {children && 
+      <div style={{marginTop: "1rem"}}> 
+          {children}
       </div>
+      }
     </div>
   )
 }
